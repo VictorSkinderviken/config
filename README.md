@@ -12,3 +12,8 @@
 - [x] Rofi styling
 - [x] Wallpaper management
 ---
+
+### 💻 Visual Studio Code
+- [x] Added plugin: Lua
+- [x] Added plugin: Material Icon Theme
+---
