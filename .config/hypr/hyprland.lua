@@ -47,6 +47,7 @@ hl.monitor({
 local terminal    = "kitty"
 local fileManager = "dolphin"
 local menu        = "hyprlauncher"
+local browser     = "firefox"
 
 
 -------------------
@@ -63,6 +64,7 @@ hl.on("hyprland.start", function ()
 --   hl.exec_cmd("nm-applet")
   hl.exec_cmd("waybar")
   hl.exec_cmd("hyprpaper")
+  hl.exec_cmd("hyprctl setcursor rose-pine-hyprcursor 32")
 end)
 
 -------------------------------
@@ -73,7 +75,9 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-
+hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("XCURSOR_THEME", "rose-pine-hyprcursor")
+hl.env("HYPRSHOT_DIR", "/home/victor/Pictures/Screenshots")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -93,6 +97,12 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
+hl.workspace_rule({ workspace = "1", monitor = "DP-3", default = true, persistent = true })
+hl.workspace_rule({ workspace = "2", monitor = "DP-3", persistent = true })
+hl.workspace_rule({ workspace = "3", monitor = "DP-3", persistent = true })
+hl.workspace_rule({ workspace = "4", monitor = "DP-1", default = true, persistent = true })
+hl.workspace_rule({ workspace = "5", monitor = "DP-1", persistent = true })
+hl.workspace_rule({ workspace = "6", monitor = "DP-1", persistent = true })
 
 -----------------------
 ---- LOOK AND FEEL ----
@@ -107,9 +117,9 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
-            inactive_border = "rgba(595959aa)",
-        },
+            active_border   = { colors = {"rgba(a1673fee)", "rgba(8a5230ee)"}, angle = 45 },
+            inactive_border = "rgba(d6d0c2aa)",
+    },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
@@ -269,6 +279,10 @@ hl.device({
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
+-- Alt+Tab bytter arbeidsflate KUN på skjermen musa/fokuset ditt er på
+hl.bind("ALT + Tab",         hl.dsp.focus({ workspace = "m+1" }))
+hl.bind("ALT + SHIFT + Tab", hl.dsp.focus({ workspace = "m-1" }))
+
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
@@ -279,12 +293,20 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
-
+hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(browser))
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
+
+hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+
+-- Swap window position with mainMod + SHIFT + arrow keys
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.swap({ direction = "l" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.swap({ direction = "r" }))
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.swap({ direction = "u" }))
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.swap({ direction = "d" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -295,8 +317,8 @@ for i = 1, 10 do
 end
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
