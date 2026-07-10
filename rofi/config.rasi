@@ -1,0 +1,86 @@
+configuration {
+    modi:                       "drun,run,window";
+    show-icons:                 true;
+    display-drun:               "";
+    display-run:                "";
+    display-window:             "";
+    drun-display-format:        "{icon} {name}";
+    font:                       "JetBrainsMono Nerd Font 12";
+}
+
+* {
+    base:      #d6d0c2;
+    surface:   #d6d0c2ee;
+    overlay:   #c9c2b1;
+    text:      #3a352c;
+    subtle:    #8a8272;
+    iris:      #a1673f;
+}
+
+window {
+    background-color:  @base;
+    border:             2px;
+    border-color:       @iris;
+    border-radius:      18px;
+    width:               480px;
+    location:            center;
+    anchor:               center;
+    padding:             12px;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing:            10px;
+    children:            [ "inputbar", "listview" ];
+}
+
+inputbar {
+    background-color:  @surface;
+    border-radius:       14px;
+    padding:              10px 16px;
+    spacing:               8px;
+    children:               [ "prompt", "entry" ];
+}
+
+prompt {
+    text-color: @iris;
+}
+
+entry {
+    placeholder:       "Search...";
+    placeholder-color: @subtle;
+    text-color:         @text;
+}
+
+listview {
+    background-color: transparent;
+    lines:               8;
+    spacing:              6px;
+    scrollbar:           false;
+    fixed-height:        false;
+}
+
+element {
+    background-color: @surface;
+    border-radius:       12px;
+    padding:               8px 12px;
+    spacing:                10px;
+    orientation:          horizontal;
+}
+
+element normal.normal {
+    text-color: @text;
+}
+
+element selected.normal {
+    background-color: @iris;
+    text-color:          @base;
+}
+
+element-icon {
+    size: 22px;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
