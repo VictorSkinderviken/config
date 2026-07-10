@@ -1,0 +1,68 @@
+* {
+    font-family: "JetBrains Mono", "Symbols Nerd Font Mono", monospace;
+    font-size: 15px;
+    min-height: 0;
+}
+
+@define-color base   #d6d0c2;
+@define-color text   #3a352c;
+@define-color muted  #8a8272;
+@define-color accent #a1673f;
+
+window#waybar {
+    background: @base;
+    color: @text;
+}
+
+#workspaces, #clock, #pulseaudio, #network, #cpu, #memory, #tray {
+    background: transparent;
+    color: @muted;
+    padding: 0 10px;
+}
+
+#workspaces button {
+    color: @muted;
+    padding: 0 8px;
+    border-radius: 4px;
+}
+
+#workspaces button.active {
+    color: @base;
+    background-color: @accent;
+    padding: 0 10px;
+}
+
+#workspaces button:hover {
+    color: #3a352c;
+    background-color: #cfc9bb;
+}
+
+#custom-cava {
+    color: #a1673f;
+    padding: 0 10px;
+    margin-left: 60px;
+    font-size: 15px;
+}
+
+#custom-gentoo {
+    color: #a1673f;
+    padding: 0 10px;
+    font-size: 22px;
+}
+
+#mpris {
+    color: #a1673f;
+    padding: 0 12px;
+}
+
+#custom-uptime {
+    color: #8a8272;
+    padding: 0 10px;
+}
+
+#clock       { color: @text; font-weight: 600; }
+#pulseaudio  { color: @accent; }
+#network     { color: @text; }
+#cpu         { color: @text; }
+#memory      { color: @text; }
+#tray        { padding: 0 6px; }
