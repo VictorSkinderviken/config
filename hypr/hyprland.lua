@@ -23,7 +23,7 @@
 ------------------
 
 -- Pulling monitor.lua comfig
-require("monitors")
+require("gentoo")
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -294,7 +294,6 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
 
 -- Swap window position with mainMod + SHIFT + arrow keys
 hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.swap({ direction = "l" }))
