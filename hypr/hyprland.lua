@@ -22,22 +22,8 @@
 ---- MONITORS ----
 ------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Monitors/
--- Monitor 1
-hl.monitor({
-    output   = "DP-3",
-    mode     = "2560x1440@240",
-    position = "0x0",
-    scale    = "1",
-})
-
--- Monitor 2
-hl.monitor({
-    output   = "DP-1",
-    mode     = "2560x1440@240",
-    position = "2560x0",
-    scale    = "1",
-})
+-- Pulling monitor.lua comfig
+require("monitors")
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -65,6 +51,8 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd("waybar")
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("hyprctl setcursor rose-pine-hyprcursor 32")
+  hl.exec_cmd("hyprpolkitagent")
+  hl.exec_cmd("hypridle")
 end)
 
 -------------------------------
@@ -74,6 +62,7 @@ end)
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 
 hl.env("XCURSOR_SIZE", "24")
+hl.env("QT_QPA_PLATFORMTHEME", "kde")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_THEME", "rose-pine-hyprcursor")
 hl.env("XCURSOR_THEME", "rose-pine-hyprcursor")
@@ -97,12 +86,6 @@ hl.env("HYPRSHOT_DIR", "/home/victor/Pictures/Screenshots")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
-hl.workspace_rule({ workspace = "1", monitor = "DP-3", default = true, persistent = true })
-hl.workspace_rule({ workspace = "2", monitor = "DP-3", persistent = true })
-hl.workspace_rule({ workspace = "3", monitor = "DP-3", persistent = true })
-hl.workspace_rule({ workspace = "4", monitor = "DP-1", default = true, persistent = true })
-hl.workspace_rule({ workspace = "5", monitor = "DP-1", persistent = true })
-hl.workspace_rule({ workspace = "6", monitor = "DP-1", persistent = true })
 
 -----------------------
 ---- LOOK AND FEEL ----
@@ -128,6 +111,12 @@ hl.config({
         allow_tearing = false,
 
         layout = "dwindle",
+    },
+
+    binds = {
+        -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
+        workspace_back_and_forth = false,
+        allow_workspace_cycles = false,
     },
 
     decoration = {
@@ -279,13 +268,18 @@ hl.device({
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
--- Alt+Tab bytter arbeidsflate KUN på skjermen musa/fokuset ditt er på
-hl.bind("ALT + Tab",         hl.dsp.focus({ workspace = "m+1" }))
-hl.bind("ALT + SHIFT + Tab", hl.dsp.focus({ workspace = "m-1" }))
+-- SUPER+Tab flytter aktivt vindu til neste/forrige workspace PÅ SAMME MONITOR
+hl.bind(mainMod .. " + Tab",         hl.dsp.window.move({ workspace = "m+1" }))
+hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.window.move({ workspace = "m-1" }))
+
+-- Hyprlock
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
+
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
+
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
@@ -319,6 +313,7 @@ end
 -- Example special workspace (scratchpad)
 -- hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
 -- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -374,9 +369,17 @@ hl.window_rule({
         fullscreen = false,
         pin        = false,
     },
-
     no_focus = true,
 })
+
+-- hl.layer_rule({
+--    name  = "focus-rofi",
+--    match = {
+--        namespace = "^rofi$",
+--    },
+--    no_anim = false,
+-- })
+
 
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({
@@ -393,4 +396,13 @@ hl.window_rule({
 
     move  = "20 monitor_h-120",
     float = true,
+})
+
+hl.layer_rule({
+    name  = "blur-wlogout",
+    match = {
+        namespace = "^wlogout$",
+    },
+    blur = true,
+    ignore_alpha = 0.5,
 })
