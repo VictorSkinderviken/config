@@ -6,8 +6,7 @@
 
     "modules-left": ["group/left", "custom/cava", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["custom/uptime", "pulseaudio", "network", "cpu", "memory", "tray"],
-
+    "modules-right": ["custom/uptime", "pulseaudio", "network", "cpu", "memory", "tray", "custom/power"],
     "group/left": {
         "orientation": "horizontal",
         "spacing": 4,
@@ -32,8 +31,7 @@
      }
     },
     "clock": {
-        "format": "  {:%H:%M}",
-        "format-alt": "  {:%A, %d %B %Y}",
+        "format": "{:%H:%M   %A %d.%m}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
@@ -42,8 +40,11 @@
         "format-muted": "  muted",
         "format-icons": {
             "default": ["", "", ""]
-        }
-
+        },
+        "on-click": "pavucontrol",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "scroll-step": 5
     },
 
     "network": {
@@ -86,5 +87,12 @@
     "exec": "uptime -p | sed 's/up //'",
     "interval": 60,
     "format": " {}"
+    },
+
+    "custom/power": {
+    "format": "⏻",
+    "on-click": "~/.config/waybar/scripts/powermenu.sh",
+    "tooltip": false
     }
+
 }
