@@ -67,6 +67,12 @@
    padding: 0 10px;
 }
 
+#custom-wallpaper {
+    color: #a1673f;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
 #clock       { color: @text; font-weight: 600; }
 #pulseaudio  { color: @accent; }
 #network     { color: @text; }
