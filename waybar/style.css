@@ -1,81 +1,131 @@
 * {
-   font-family: "JetBrains Mono", "Symbols Nerd Font Mono", monospace;
-   font-size: 15px;
-   min-height: 0;
+    font-family: "JetBrains Mono", "Symbols Nerd Font Mono", monospace;
+    font-size: 15px;
+    min-height: 0;
 }
-#waybar {
-   background-color: transparent;
-   border-radius: 12px;
-   color: @text;
-}
-
 
 @define-color base   #d6d0c2;
 @define-color text   #3a352c;
 @define-color muted  #8a8272;
 @define-color accent #a1673f;
+@define-color warn   #b58a3f;
+@define-color crit   #b23c2d;
 
-#workspaces, #clock, #pulseaudio, #network, #cpu, #memory, #tray {
-   background: transparent;
-   color: @muted;
-   padding: 0 10px;
+window#waybar {
+    background-color: transparent;
+    color: @text;
 }
 
-#workspaces button {
-   color: @muted;
-   padding: 0 8px;
-   border-radius: 4px;
-}
-
-#workspaces button.active {
-   color: @base;
-   background-color: @accent;
-   padding: 0 10px;
-}
-
-#workspaces button:hover {
-   color: #3a352c;
-   background-color: #cfc9bb;
-}
-
-#custom-cava {
-   color: #a1673f;
-   padding: 0 10px;
-   margin-left: 60px;
-   font-size: 15px;
+/* --- Venstre gruppe: nixos-logo + workspaces --- */
+#custom-nixos {
+    color: @accent;
+    padding: 0 10px;
+    font-size: 32px;
 }
 
 #custom-gentoo {
-   color: #a1673f;
-   padding: 0 10px;
-   font-size: 22px;
+    color: @accent;
+    padding: 0 10px;
+    font-size: 22px;
 }
 
-#custom-power {
-   color: #a1673f;
-   padding: 0 14px;
-   font-size: 22px;
+#workspaces {
+    background: transparent;
+    padding: 0 6px;
+}
+
+#workspaces button {
+    color: @muted;
+    padding: 0 8px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @base;
+    background-color: @accent;
+    padding: 0 10px;
+}
+
+#workspaces button:hover {
+    color: @text;
+    background-color: rgba(138, 130, 114, 0.25);
+}
+
+/* --- Cava + musikk --- */
+#custom-cava {
+    color: @accent;
+    padding: 0 10px;
+    margin-left: 60px;
 }
 
 #mpris {
-   color: #a1673f;
-   padding: 0 12px;
+    color: @accent;
+    padding: 0 12px;
+}
+
+/* --- Klokke, midtstilt --- */
+#clock {
+    color: @text;
+    font-weight: 700;
+    padding: 0 14px;
+}
+
+/* --- Høyre side: wallpaper, uptime, status-moduler --- */
+#custom-wallpaper {
+    color: @accent;
+    padding: 0 10px;
+    font-size: 22px;
 }
 
 #custom-uptime {
-   color: #8a8272;
-   padding: 0 10px;
-}
-
-#custom-wallpaper {
-    color: #a1673f;
+    color: @muted;
     padding: 0 10px;
-    font-size: 16px;
 }
 
-#clock       { color: @text; font-weight: 600; }
-#pulseaudio  { color: @accent; }
-#network     { color: @text; }
-#cpu         { color: @text; }
-#memory      { color: @text; }
-#tray        { padding: 0 6px; }
+#pulseaudio {
+    color: @accent;
+    padding: 0 10px;
+}
+
+#network {
+    color: @text;
+    padding: 0 10px;
+}
+
+#cpu {
+    color: @text;
+    padding: 0 10px;
+}
+
+#cpu.warning {
+    color: @warn;
+}
+
+#cpu.critical {
+    color: @crit;
+}
+
+#memory {
+    color: @text;
+    padding: 0 10px;
+}
+
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#custom-power {
+    color: @accent;
+    padding: 0 14px;
+    font-size: 20px;
+}
+
+#custom-power:hover {
+    color: @crit;
+}
