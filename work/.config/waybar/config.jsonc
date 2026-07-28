@@ -1,0 +1,73 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["bluetooth", "pulseaudio","network", "battery", "tray", "custom/power"],
+
+
+    "hyprland/window": {
+        "max-length": 60
+    },
+
+    "clock": {
+        "format": "{:%H:%M  |  %d %b}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "locale": "nb_NO.UTF-8",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months":   "<span color='#e8e6e1'><b>{}</b></span>",
+                "days":     "<span color='#e8e6e1'>{}</span>",
+                "weekdays": "<span color='#e8e6e1'><b>{}</b></span>",
+                "today":    "<span color='#e8e6e1'><b><u>{}</u></b></span>"
+            }
+        },
+        "on-click": "gsimplecal"
+    },
+
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+        "states": { "warning": 30, "critical": 15 }
+    },
+
+    "network": {
+        "format-wifi": "{essid}",
+        "format-ethernet": "wired",
+        "format-disconnected": "offline"
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": "󰝟 muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 5,
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol"
+    },
+
+    "tray": {
+        "spacing": 8
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "~/.local/bin/powermenu"
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱 {num_connections}",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "on-click": "/home/starna/.local/bin/rofi-bluetooth",
+        "on-click-right": "blueman-manager"
+    }
+}
