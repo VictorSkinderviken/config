@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+choice=$(printf "󰌾  Lock\n󰍃  Logout\n󰤄  Suspend\n󰜉  Reboot\n󰐥  Shutdown" | \
+    rofi -dmenu -p "" \
+         -theme-str 'window { location: northeast; anchor: northeast; y-offset: 45px; x-offset: -10px; width: 220px; }' \
+         -theme-str 'listview { lines: 5; }' \
+         -theme-str 'inputbar { enabled: false; }')
+
+case "$choice" in
+    *Lock)     hyprlock ;;
+    *Logout)   hyprctl dispatch "hl.dsp.exit()" ;;
+    *Suspend)  systemctl suspend ;;
+    *Reboot)   systemctl reboot ;;
+    *Shutdown) systemctl poweroff ;;
+esac
