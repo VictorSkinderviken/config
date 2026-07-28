@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Usage: volume-osd raise|lower|mute
+case "$1" in
+    raise) wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+    lower) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+    mute)  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+esac
+
+vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+pct=$(echo "$vol" | awk '{print int($2*100)}')
+
+if echo "$vol" | grep -q MUTED; then
+    notify-send -h string:x-canonical-private-synchronous:volume "Muted 󰝟"
+else
+    notify-send -h int:value:"$pct" -h string:x-canonical-private-synchronous:volume "Volume ${pct}%"
+fi
