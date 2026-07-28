@@ -1,0 +1,113 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 15px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 28, 0.9);     
+    color: #e8e6e1;                         
+    border-bottom: 2px solid #7a7a75;       
+}
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 10px;
+    margin: 5px 3px;
+    color: #6f6f6a;                         
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+}
+
+#workspaces button.active {
+    color: #1e1e1c;
+    background: #6f6f6a;                    
+}
+
+#workspaces button:hover {
+    color: #e8e6e1;
+    background: #45443f;
+}
+
+#workspaces button.urgent {
+    color: #1e1e1c;
+    background: #c98a8a;                     
+}
+
+/* Window title */
+#window {
+    color: #b8b6b0;
+    font-style: italic;
+}
+
+/* Right-side modules as pills */
+#clock, #battery, #network, #pulseaudio, #tray {
+    padding: 0 14px;
+    margin: 5px 3px;
+    background: #34332f;
+    border-radius: 10px;
+}
+
+#clock {
+    color: #e8e6e1;                         
+}
+
+#battery {
+    color: #a3b18a;                         
+}
+
+#battery.warning {
+    color: #c9b389;
+}
+
+#battery.critical {
+    color: #c98a8a;
+}
+
+#battery.charging {
+    color: #8fada3;
+}
+
+#network {
+    color: #8fada3;                         
+}
+
+#network.disconnected {
+    color: #6f6f6a;                         
+}
+
+#pulseaudio {
+    color: #c9b389;                          
+}
+
+#pulseaudio.muted {
+    color: #6f6f6a;
+}
+
+tooltip {
+    background: rgba(26, 26, 24, 0.98);
+    border: 2px solid #7a7a75;
+    border-radius: 10px;
+}
+
+tooltip label {
+    color: #e8e6e1;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 16px;
+    padding: 12px;
+}
+
+#custom-power {
+    color: #c98a8a;                         
+    padding: 0 14px;
+    margin: 5px 6px 5px 3px;
+    background: #34332f;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+#custom-power:hover {
+    background: #c98a8a;
+    color: #1e1e1c;
+}
